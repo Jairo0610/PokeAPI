@@ -1,4 +1,3 @@
-
 @import url('https://fonts.cdnfonts.com/css/montserrat');
 @import url('https://fonts.cdnfonts.com/css/arcade-classic');
 @import url('https://fonts.cdnfonts.com/css/rockwell-nova');
@@ -6,11 +5,10 @@
 body {
     background-color: #030627;
 }
-.imgPoke:hover{
+
+.imgPoke:hover {
     transition: 1.0s;
-    filter: drop-shadow(
-        8px 4px 4px #605DFF
-    );
+    filter: drop-shadow(8px 4px 4px #605DFF);
 }
 
 .card__pokemon {
@@ -24,6 +22,8 @@ body {
     border-radius: 15px;
     gap: 15px;
     box-shadow: 2px 2px 1px rgba(53, 51, 51, 0.6);
+
+    
 }
 
 .card__header__favorite {
@@ -146,4 +146,44 @@ body {
 
 .tipoAgua {
     background-color: #009cff;
+}
+
+
+/* 
+estilos para el modal de estadisticas de los pokemones
+
+*/
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-contenido {
+    background-color: #010215;
+    margin: 5% auto;
+    padding: 20px;
+    border: 2px solid white;
+    border-radius: 10px;
+    width: 60%;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+}
+
+.cerrar {
+    color: white;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
 }

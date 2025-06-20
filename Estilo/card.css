@@ -13,18 +13,52 @@ body {
 
 .card__pokemon {
     background-image: url(pokeball.svg), linear-gradient(to top, #ee812f, #010215, #010215);
-    width: 250px;
-    height: 300px;
     background-size: contain, cover;
     background-repeat: no-repeat;
-    margin: 0 auto;
-    border: 2px ridge white;
+    border: 2px solid transparent;
     border-radius: 15px;
-    gap: 15px;
-    box-shadow: 2px 2px 1px rgba(53, 51, 51, 0.6);
-
-    
+    box-shadow: 2px 2px 6px rgba(53, 51, 51, 0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    padding: 10px;
+    height: 100%;
 }
+
+.card__pokemon:hover {
+    transform: scale(0.97);
+    box-shadow: 0 0 8px #ffef0a, 0 0 16px #ffef0a;
+    border-color: #ff6c0a;
+}
+
+@media (max-width: 768px) {
+    .pokemonImagen {
+        width: 80px;
+        height: 80px;
+    }
+
+    .pokemonNombre {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 576px) {
+    .card__pokemon {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .pokemonImagen {
+        width: 70px;
+        height: 70px;
+    }
+
+    .pokemonID {
+        font-size: 14px;
+    }
+}
+
+
+
+/*  */
 
 .card__header__favorite {
     margin: 0;
@@ -187,3 +221,4 @@ estilos para el modal de estadisticas de los pokemones
     font-weight: bold;
     cursor: pointer;
 }
+

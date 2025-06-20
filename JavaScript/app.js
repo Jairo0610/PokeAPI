@@ -40,6 +40,9 @@ class Pokedex {
         imgPokeBall.src = "../Recursos/pokeballNumeracion.svg";
         const numID = document.createElement('span');
 
+
+
+
         //ícono favorito
         btnFavorite.innerHTML = esFavorito(pokemon.id)
             ? "<i class='bx bxs-heart' style='color:#e74c3c'></i>"
@@ -70,7 +73,7 @@ class Pokedex {
 
         headerContenedor.appendChild(contendorBtnFavorite);
         headerContenedor.appendChild(contenedorID);
-
+        
         return headerContenedor;
     }
 
@@ -165,8 +168,6 @@ class Pokedex {
 
         return cardContenedorInformacion;
 
-
-
     }
 
     #dibujarPokemon(pokemon) {
@@ -194,9 +195,6 @@ class Pokedex {
 
 
         //Cargar los datos y mostrarlas en el frond
-
-
-
         const card = document.createElement('div');
         card.classList.add("card__pokemon");
 
@@ -205,18 +203,34 @@ class Pokedex {
         card.appendChild(this.#generarInformacionGeneral(pokemon));
         card.style.backgroundImage = `url('../Recursos/pokeball.svg'), linear-gradient(to top, ${coloresTipos[pokemon.tipo[0]]}, #010215, #010215)`;
 
+        //diseño de cartas con bordes brillosos
+        card.addEventListener("mouseenter", () => {
+            card.style.transform = "scale(0.95)";
+            card.style.borderColor = coloresTipos[pokemon.tipo[0]];
+            card.style.boxShadow = `
+                                    0 0 10px ${coloresTipos[pokemon.tipo[0]]},
+                                    0 0 20px ${coloresTipos[pokemon.tipo[0]]},
+                                    0 0 30px ${coloresTipos[pokemon.tipo[0]]}`;
+        });
+
+        card.addEventListener("mouseleave", () => {
+            card.style.transform = "scale(1)";
+            card.style.borderColor = "white";
+            card.style.boxShadow = "2px 2px 1px rgba(53, 51, 51, 0.6)";
+        });
+
         return card;
     }
 
     dibujarPokedex() {
         const container = document.getElementById("data-pokemons");
-        container.innerHTML = ""; // Limpiar contenido previo
+        container.innerHTML = "";
 
 
 
         this.#pokemons.forEach(pokemon => {
             const col = document.createElement("div");
-            col.classList.add("col-3");
+            col.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3");
             col.style = "padding: 10px"
             col.appendChild(this.#dibujarPokemon(pokemon))
             container.appendChild(col);
@@ -237,7 +251,7 @@ class Pokedex {
         container.innerHTML = "";
         lista.forEach(pokemon => {
             const col = document.createElement("div");
-            col.classList.add("col-3");
+            col.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3");
             col.style = "padding: 10px";
             col.appendChild(this.#dibujarPokemon(pokemon));
             container.appendChild(col);

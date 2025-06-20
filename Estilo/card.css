@@ -188,7 +188,7 @@ estilos para el modal de estadisticas de los pokemones
 
 */
 
-.modal {
+.mi-modal {
     display: none;
     position: fixed;
     z-index: 999;

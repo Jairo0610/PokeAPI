@@ -429,11 +429,59 @@ function esFavorito(id) {
 }
 
 function alternarFavorito(id) {
-    let favoritos = obtenerFavoritos();
+    const favoritos = obtenerFavoritos();
+
+    if (favoritos.includes(id)) {
+        // Si ya estaba, lo quitamos
+        const nuevos = favoritos.filter(fav => fav !== id);
+        guardarFavoritos(nuevos);
+        return;
+    }
+
+    // Si no estaba y ya hay 6, no añadimos
+    if (favoritos.length >= 6) {
+        showLimitAlert("❌ Solo puedes tener hasta 6 Pokémon favoritos.");
+        return;
+    }
+
+    // Si queda espacio, lo añadimos
+    favoritos.push(id);
+    guardarFavoritos(favoritos);
+    
+
+
+    /*let favoritos = obtenerFavoritos();
+
     if (favoritos.includes(id)) {
         favoritos = favoritos.filter(fav => fav !== id);
     } else {
         favoritos.push(id);
     }
-    guardarFavoritos(favoritos);
+    guardarFavoritos(favoritos);*/
 }
+
+
+/**
+ * Muestra una alerta Bootstrap de modo temporal (5s).
+ */
+function showLimitAlert(message) {
+    const placeholder = document.getElementById('limit-alert-placeholder');
+    // Inyecta la alerta
+    placeholder.innerHTML = `
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>`;
+    // La removeremos tras 5 segundos
+    setTimeout(() => {
+        // Inicia el fade out
+        const alertEl = placeholder.querySelector('.alert');
+        if (alertEl) {
+            alertEl.classList.remove('show');
+            alertEl.classList.add('hide');
+            // Luego la limpiamos del DOM
+            setTimeout(() => placeholder.innerHTML = '', 500);
+        }
+    }, 5000);
+}
+

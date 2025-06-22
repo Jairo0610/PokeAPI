@@ -29,6 +29,7 @@
 
     <!-- Botones -->
     <div class="container text-center mb-4">
+        <button id="btnMostrarEntrenadores" class="btnDetalles me-2">Mostrar Entrenadores</button>
         <button id="btnMostrarFavoritos" class="btnDetalles me-2">Mostrar Favoritos</button>
         <button id="btnMostrarTodos" class="btnDetalles">Mostrar Todos</button>
 
@@ -41,8 +42,26 @@
     </div>
 
 
+    <!-- === SECCIÓN ENTRENADORES === -->
+    <section id="entrenadores" class="container my-5 text-white" style="display:none">
+        <h2 class="text-center mb-4">Entrenadores</h2>
+        <div class="row g-3" id="trainers-container">
+            <!-- Aquí inyectaremos los 5 trainer-cards -->
+        </div>
+    </section>
+    <!-- ============================ -->
+
+
+    <!-- === SECCIÓN MIS ACOMPAÑANTES === -->
+    <section id="mis-acompanantes" class="container my-5 text-white" style="display:none">
+        <h2 class="text-center mb-4">Mis acompañantes</h2>
+        <ul id="listAcompanantes" class="list-group list-group-flush"></ul>
+    </section>
+
+
+
     <!-- espacio para las cartas de los pokemones -->
-    <div class="container">
+    <div id="pokedex-container" class="container">
         <div class="row g-3 justify-content-center" id="data-pokemons">
 
         </div>

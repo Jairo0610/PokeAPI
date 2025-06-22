@@ -269,38 +269,119 @@ class Pokedex {
 }
 
 
+/**
+ * Oculta todas las secciones: entrenadores, acompañantes y Poké–Dex.
+ */
+function hideAllSections() {
+    document.getElementById('entrenadores').style.display      = 'none';
+    document.getElementById('mis-acompanantes').style.display  = 'none';
+    document.getElementById('pokedex-container').style.display = 'none';
+}
+
+
 // --- funciones para cambiar de vista ---
 function showFavorites() {
+    hideAllSections();
     showingFavorites = true;
-    const favoritos   = obtenerFavoritos();
-    const todos       = pokedex.obtenerTodos();
-    const filtrados   = todos.filter(p => favoritos.includes(p.id));
-    const mensajeVacio = document.getElementById("mensaje-vacio");
+    document.getElementById('pokedex-container').style.display = 'block';
 
+    const favoritos = obtenerFavoritos();
+    const filtrados = pokedex.obtenerTodos().filter(p => favoritos.includes(p.id));
+    const mensajeVacio = document.getElementById('mensaje-vacio');
     if (filtrados.length === 0) {
-        mensajeVacio.style.display = "block";
-        document.getElementById("data-pokemons").innerHTML = "";
+        mensajeVacio.style.display = 'block';
+        document.getElementById('data-pokemons').innerHTML = '';
     } else {
-        mensajeVacio.style.display = "none";
+        mensajeVacio.style.display = 'none';
         pokedex.dibujarPokemonsFiltrados(filtrados);
     }
 }
 
 function showAll() {
+    hideAllSections();
     showingFavorites = false;
-    document.getElementById("mensaje-vacio").style.display = "none";
+    document.getElementById('mensaje-vacio').style.display = 'none';
+    document.getElementById('pokedex-container').style.display = 'block';
     pokedex.dibujarPokedex();
 }
 
 // ————————————————————————————————
 
 
+/**
+ * Muestra solo la sección de entrenadores,
+ * ocultando Pokémon y acompañantes.
+ */
+function showTrainers() {
+    hideAllSections();
+    document.getElementById('entrenadores').style.display = 'block';
+}
+
+
+
+// Datos de 5 entrenadores
+const trainersData = [
+    {
+        id: 1,
+        code: "AA23027",
+        name: "Jairo Argueta",
+        avatar: "../Recursos/AvatarJairo.png",
+        hobby: "Limpia PC's"
+    },
+    {
+        id: 2,
+        code: "CM23015",
+        name: "Fatima Cruz",
+        avatar: "../Recursos/AvatarFatima.png",
+        hobby: "Ama jugar Genshin"
+    },
+    {
+        id: 3,
+        code: "GB23003",
+        name: "Victor Gonzales",
+        avatar: "../Recursos/AvatarVictor.png",
+        hobby: "Fan de HDP"
+    },
+    {
+        id: 4,
+        code: "CB23001",
+        name: "Javier Colocho",
+        avatar: "../Recursos/AvatarJavier.png",
+        hobby: "Arma PC's"
+    },
+    {
+        id: 5,
+        code: "MA22013",
+        name: "Yanira Martinez",
+        avatar: "../Recursos/AvatarYanira.png",
+        hobby: "La guitarra es su amiga"
+    }
+];
+
 
 window.addEventListener("DOMContentLoaded", async () => {
+    
+    // 1) Render trainers
+    const trainersContainer = document.getElementById("trainers-container");
+    trainersContainer.innerHTML = trainersData.map(t => `
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 d-flex">
+            <div class="trainer-card flex-fill">
+                <img src="${t.avatar}" class="trainer-avatar" alt="${t.name}">
+                <h3 class="trainer-name">${t.name}</h3>
+                <p class="trainer-code">Código: ${t.code}</p>
+                <p class="trainer-hobby">${t.hobby}</p>
+            </div>
+        </div>
+    `).join('');
+
+    
     const datos = await getPokeJSON();
     pokedex = new Pokedex();
     pokedex.cargarDatosPokemons(datos);
     pokedex.dibujarPokedex();
+
+    document.getElementById("btnMostrarEntrenadores")
+        .addEventListener("click", showTrainers);
 
 
     //favoritos

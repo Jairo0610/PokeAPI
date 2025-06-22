@@ -37,7 +37,7 @@ class Pokemon {
                             nombre: stat.stat.name,
                             valor: stat.base_stat
                         })),
-                        data.moves.map(m => m.move.name),
+                        data.moves.slice(0, 5).map(m => m.move.name),
                         data.sprites.other["official-artwork"].front_default
                     )
                     arrayPokemon.push(newPokemon)

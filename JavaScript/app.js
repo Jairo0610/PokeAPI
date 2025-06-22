@@ -1,3 +1,57 @@
+import {
+    openDB,
+    addOrUpdateTrainer,
+    getAllTrainers
+} from './dbService.js';
+
+// Datos de 5 entrenadores
+const trainersData = [
+    {
+        id: 1,
+        code: "AA23027",
+        name: "Jairo Argueta",
+        avatar: "../Recursos/AvatarJairo.png",
+        hobby: "Limpia PC's"
+    },
+    {
+        id: 2,
+        code: "CM23015",
+        name: "Fatima Cruz",
+        avatar: "../Recursos/AvatarFatima.png",
+        hobby: "Ama jugar Genshin"
+    },
+    {
+        id: 3,
+        code: "GB23003",
+        name: "Victor Gonzales",
+        avatar: "../Recursos/AvatarVictor.png",
+        hobby: "Fan de HDP"
+    },
+    {
+        id: 4,
+        code: "CB23001",
+        name: "Javier Colocho",
+        avatar: "../Recursos/AvatarJavier.png",
+        hobby: "Arma PC's"
+    },
+    {
+        id: 5,
+        code: "MA22013",
+        name: "Yanira Martinez",
+        avatar: "../Recursos/AvatarYanira.png",
+        hobby: "La guitarra es su amiga"
+    }
+];
+
+// IIFE que “siembra” IndexedDB en la primera carga
+(async () => {
+  const existing = await getAllTrainers();
+  if (existing.length === 0) {
+    await Promise.all(trainersData.map(t => addOrUpdateTrainer(t)));
+  }
+})();
+
+
 let pokedex;
 
 let showingFavorites = false;
@@ -318,52 +372,13 @@ function showTrainers() {
 }
 
 
-
-// Datos de 5 entrenadores
-const trainersData = [
-    {
-        id: 1,
-        code: "AA23027",
-        name: "Jairo Argueta",
-        avatar: "../Recursos/AvatarJairo.png",
-        hobby: "Limpia PC's"
-    },
-    {
-        id: 2,
-        code: "CM23015",
-        name: "Fatima Cruz",
-        avatar: "../Recursos/AvatarFatima.png",
-        hobby: "Ama jugar Genshin"
-    },
-    {
-        id: 3,
-        code: "GB23003",
-        name: "Victor Gonzales",
-        avatar: "../Recursos/AvatarVictor.png",
-        hobby: "Fan de HDP"
-    },
-    {
-        id: 4,
-        code: "CB23001",
-        name: "Javier Colocho",
-        avatar: "../Recursos/AvatarJavier.png",
-        hobby: "Arma PC's"
-    },
-    {
-        id: 5,
-        code: "MA22013",
-        name: "Yanira Martinez",
-        avatar: "../Recursos/AvatarYanira.png",
-        hobby: "La guitarra es su amiga"
-    }
-];
-
-
 window.addEventListener("DOMContentLoaded", async () => {
     
-    // 1) Render trainers
     const trainersContainer = document.getElementById("trainers-container");
-    trainersContainer.innerHTML = trainersData.map(t => `
+    // 1) Leer de la DB
+    const trainersFromDB = await getAllTrainers();
+    // 2) Renderizar
+    trainersContainer.innerHTML = trainersFromDB.map(t => `
         <div class="col-12 col-sm-6 col-md-6 col-lg-4 d-flex">
             <div class="trainer-card flex-fill">
                 <img src="${t.avatar}" class="trainer-avatar" alt="${t.name}">
@@ -373,6 +388,7 @@ window.addEventListener("DOMContentLoaded", async () => {
             </div>
         </div>
     `).join('');
+
 
     
     const datos = await getPokeJSON();

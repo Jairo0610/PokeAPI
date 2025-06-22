@@ -1,3 +1,9 @@
+let pokedex;
+
+let showingFavorites = false;
+
+
+
 //función para extraer los datos del archivo JSON creado de la clase pokemon
 let pokemons;
 async function getPokeJSON() {
@@ -262,35 +268,47 @@ class Pokedex {
 
 }
 
+
+// --- funciones para cambiar de vista ---
+function showFavorites() {
+    showingFavorites = true;
+    const favoritos   = obtenerFavoritos();
+    const todos       = pokedex.obtenerTodos();
+    const filtrados   = todos.filter(p => favoritos.includes(p.id));
+    const mensajeVacio = document.getElementById("mensaje-vacio");
+
+    if (filtrados.length === 0) {
+        mensajeVacio.style.display = "block";
+        document.getElementById("data-pokemons").innerHTML = "";
+    } else {
+        mensajeVacio.style.display = "none";
+        pokedex.dibujarPokemonsFiltrados(filtrados);
+    }
+}
+
+function showAll() {
+    showingFavorites = false;
+    document.getElementById("mensaje-vacio").style.display = "none";
+    pokedex.dibujarPokedex();
+}
+
+// ————————————————————————————————
+
+
+
 window.addEventListener("DOMContentLoaded", async () => {
     const datos = await getPokeJSON();
-    const pokedex = new Pokedex();
+    pokedex = new Pokedex();
     pokedex.cargarDatosPokemons(datos);
     pokedex.dibujarPokedex();
 
 
     //favoritos
-    document.getElementById("btnMostrarFavoritos").addEventListener("click", () => {
-        const favoritos = obtenerFavoritos();
-        const todos = pokedex.obtenerTodos();
-        const filtrados = todos.filter(p => favoritos.includes(p.id));
+    document.getElementById("btnMostrarFavoritos")
+        .addEventListener("click", showFavorites);
 
-        const mensajeVacio = document.getElementById("mensaje-vacio");
-
-        if (filtrados.length === 0) {
-            mensajeVacio.style.display = "block";
-            document.getElementById("data-pokemons").innerHTML = ""; // Limpia
-        } else {
-            mensajeVacio.style.display = "none";
-            pokedex.dibujarPokemonsFiltrados(filtrados);
-        }
-    });
-
-    // Botón Mostrar Todos
-    document.getElementById("btnMostrarTodos").addEventListener("click", () => {
-        document.getElementById("mensaje-vacio").style.display = "none";
-        pokedex.dibujarPokedex();
-    });
+    document.getElementById("btnMostrarTodos")
+        .addEventListener("click", showAll);
 
 
     //barra de busqueda
@@ -435,29 +453,25 @@ function alternarFavorito(id) {
         // Si ya estaba, lo quitamos
         const nuevos = favoritos.filter(fav => fav !== id);
         guardarFavoritos(nuevos);
-        return;
-    }
+        //return;
+    } else{
 
-    // Si no estaba y ya hay 6, no añadimos
-    if (favoritos.length >= 6) {
-        showLimitAlert("❌ Solo puedes tener hasta 6 Pokémon favoritos.");
-        return;
-    }
+        // Si no estaba y ya hay 6, no añadimos
+        if (favoritos.length >= 6) {
+            showLimitAlert("❌ Solo puedes tener hasta 6 Pokémon favoritos.");
+            return;
+        }
 
-    // Si queda espacio, lo añadimos
-    favoritos.push(id);
-    guardarFavoritos(favoritos);
-    
-
-
-    /*let favoritos = obtenerFavoritos();
-
-    if (favoritos.includes(id)) {
-        favoritos = favoritos.filter(fav => fav !== id);
-    } else {
+        // Si queda espacio, lo añadimos
         favoritos.push(id);
+        guardarFavoritos(favoritos);
+
     }
-    guardarFavoritos(favoritos);*/
+
+    if (showingFavorites) {
+        
+        showFavorites();
+    }
 }
 
 

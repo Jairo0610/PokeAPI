@@ -38,7 +38,7 @@ export class Pokedex {
         const contenedorID = document.createElement('div');
         const pokemonID = document.createElement('p');
         const imgPokeBall = document.createElement('img');
-        imgPokeBall.src = "../Recursos/pokeballNumeracion.svg";
+        imgPokeBall.src = "./Recursos/pokeballNumeracion.svg";
         const numID = document.createElement('span');
 
         const btnAcompanante = document.createElement("p");

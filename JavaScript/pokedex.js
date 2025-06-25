@@ -1,8 +1,10 @@
+// pokedex.js
 
 import { esFavorito, alternarFavorito } from './data.js';
 import { obtenerAcompanantesDB, eliminarAcompananteDB } from './db.js';
 import { agregarAcompananteIndexed } from './pokedexView.js';
 import { showPokemonDetails } from './detalles.js';
+// import { coloresTipos } from './colores.js';
 
 // Clase Pokedex para manejar pokemones y acompañantes
 export class Pokedex {

@@ -222,3 +222,20 @@ estilos para el modal de estadisticas de los pokemones
     cursor: pointer;
 }
 
+
+
+
+/* ---------------------- */
+
+/* estilos para el logo de pokedex */
+.pokedex-logo {
+    max-height: 200px;
+    height: auto;
+    width: auto;
+}
+
+@media (max-width: 576px) {
+    .pokedex-logo {
+        max-height: 100px;
+    }
+}

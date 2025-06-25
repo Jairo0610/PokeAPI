@@ -605,15 +605,16 @@ async function showPokemonDetails(id) {
 
 
     const abilities = pokemon.habilidades.map(h => `
-        <div class="col-md-6">
+    <div class="col-12 col-sm-6">
         <div class="card mb-2 shadow-sm border-0">
-            <div class="card-body d-flex justify-content-between align-items-center">
-            <span class="text-capitalize fw-semibold">${h}</span>
-            <span class="badge bg-success text-uppercase">Skill</span>
+            <div class="card-body card-skill">
+                <span class="text-capitalize fw-semibold text-wrap" style="word-break: break-word;">${h}</span>
+                <span class="badge bg-success text-uppercase">Skill</span>
             </div>
         </div>
-        </div>
+    </div>
     `).join('');
+
 
 
 
@@ -645,13 +646,13 @@ async function showPokemonDetails(id) {
 
         <ul class="nav nav-pills nav-fill ">
         <li class="nav-item">
-            <button id="btnInfo" class="btn active btn-primary me-2" >Información General</button>
+            <button id="btnInfo" class="btn active btn-primary m-2" >Información General</button>
         </li>
         <li class="nav-item">
-            <button id="btnStats" class="btn me-2">Estadísticas</button>
+            <button id="btnStats" class="btn btn-outline-primary m-2">Estadísticas</button>
         </li>
         <li class="nav-item">
-            <button id="btnMoves" class="btn">Movimientos</button>
+            <button id="btnMoves" class="btn btn-outline-primary  m-2">Movimientos</button>
         </li>
         </ul>
 
@@ -678,7 +679,7 @@ async function showPokemonDetails(id) {
             <div class="col-md-6">
                 <h5 class="text-center  mt-3 fw-bold">Habilidades</h5>
                 <div class="row">
-                ${abilities}
+                    ${abilities}
                 </div>
 
                 <h5 class="text-center mt-4 fw-bold">Debilidades</h5>
@@ -714,36 +715,45 @@ async function showPokemonDetails(id) {
         infoSection.style.display = 'flex';
         btnInfo.classList.add('active');
         btnInfo.classList.add('btn-primary');
+        btnInfo.classList.remove('btn-outline-primary');
         statsSection.style.display = 'none';
         btnStats.classList.remove('active');
         btnStats.classList.remove('btn-primary');
+        btnStats.classList.add('btn-outline-primary');
         movesSection.style.display = 'none';
         btnMoves.classList.remove('active');
         btnMoves.classList.remove('btn-primary');
+        btnMoves.classList.add('btn-outline-primary');
     });
 
     btnStats.addEventListener('click', () => {
         infoSection.style.display = 'none';
         btnInfo.classList.remove('active');
         btnInfo.classList.remove('btn-primary');
+        btnInfo.classList.add('btn-outline-primary');
         statsSection.style.display = 'flex';
         btnStats.classList.add('active');
         btnStats.classList.add('btn-primary');
+        btnStats.classList.remove('btn-outline-primary');
         movesSection.style.display = 'none';
         btnMoves.classList.remove('active');
         btnMoves.classList.remove('btn-primary');
+        btnMoves.classList.add('btn-outline-primary');
     });
 
     btnMoves.addEventListener('click', () => {
         infoSection.style.display = 'none';
         btnInfo.classList.remove('active');
         btnInfo.classList.remove('btn-primary');
+        btnInfo.classList.add('btn-outline-primary');
         statsSection.style.display = 'none';
         btnStats.classList.remove('active');
         btnStats.classList.remove('btn-primary');
+        btnStats.classList.add('btn-outline-primary');
         movesSection.style.display = 'flex';
         btnMoves.classList.add('active');
         btnMoves.classList.add('btn-primary');
+        btnMoves.classList.remove('btn-outline-primary');
     });
 
     // Mostrar modal

@@ -364,6 +364,15 @@ estilos para el modal de estadisticas de los pokemone
     font-family: 'Rockwell Nova Extra Bold', sans-serif;
 }
 
+.card-skill {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+
 .cerrar {
     color: white;
     position: absolute;

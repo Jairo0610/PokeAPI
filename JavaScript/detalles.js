@@ -82,71 +82,109 @@ export async function showPokemonDetails(id) {
 
   let tipo = ``
   await pokemon.tipo.forEach(t => {
-    tipo += `<h4 class = "pokemonTipo fs-4 font-monospace" style="background-color: ${coloresTipos[t]}">${tipoEsp[t].toUpperCase()}</h4>`
+    tipo += `<h4 class = "pokemonTipo fs-4" style="background-color: ${coloresTipos[t]}">${tipoEsp[t].toUpperCase()}</h4>`
   });
   let debilidades = ``
   await pokemon.debilidades.forEach(d => {
-    debilidades += `<h4 class = "pokemonTipo fs-4 font-monospace" style="background-color: ${coloresTipos[d]}">${tipoEsp[d].toUpperCase()}</h4>`
+    debilidades += `<h4 class = "pokemonTipo  fs-4 fw-semibold" style="background-color: ${coloresTipos[d]}">${tipoEsp[d].toUpperCase()}</h4>`
   });
 
 
-  const abilities = pokemon.habilidades.join(', ');
+  const abilities = pokemon.habilidades.map(h => `
+    <div class="col-md-6">
+      <div class="card mb-2 shadow-sm border-0">
+        <div class="card-body d-flex justify-content-between align-items-center">
+          <span class="text-capitalize fw-semibold">${h}</span>
+          <span class="badge bg-success text-uppercase">Skill</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+
+
   const stats = pokemon.stats.map(s => `
         <div class="p-2">
-            <h5 class="fw-medium font-monospace">${s.nombre.toUpperCase()}</h5>
+            <h5 class="fw-medium  fs-5">${s.nombre.toUpperCase()}</h5>
             <div class="progress" role="progressbar" aria-label="Barra de progreso" aria-valuemin="0" aria-valuemax="255" style="height: 25px; background-color: #ffffff00;">
-                <div class="progress-bar progress-bar-striped font-monospace fw-medium fs-5" style="width: ${(s.valor / 255) * 100}%; background-color: ${colorProgress(s.nombre.toUpperCase())};">
+                <div class="progress-bar fw-medium fs-5 fw-semibold" style="width: ${(s.valor / 255) * 100}%; background-color: ${coloresTipos[pokemon.tipo[0]]}; color: black">
                     ${s.valor}
                 </div>
             </div>
         </div>`).join('');
 
-  const moves = pokemon.moves.map(m => `<li>${m}</li>`).join('');
+  const moves = pokemon.moves.map(m => `
+  <div class="col-md-6 col-lg-4">
+    <div class="card mb-3 shadow-sm border-0">
+      <div class="card-body d-flex justify-content-between align-items-center">
+        <span class="text-capitalize fw-semibold">${m}</span>
+        <span class="badge bg-primary text-uppercase">Move</span>
+      </div>
+    </div>
+  </div>
+`).join('');
 
   pokemonDetails.innerHTML = `
     <div class="text-center">
-        <img src="${pokemon.sprites}" class="img-fluid mb-3" style="max-height: 200px;">
+        <img src="${pokemon.sprites}" class="pokemonImagen img-fluid mb-3 " style="max-height: 200px;">
     </div>
 
-    <div class="mb-3 text-center">
-        <button id="btnInfo" class="btn btn-info me-2">Información General</button>
-        <button id="btnStats" class="btn btn-primary me-2">Estadísticas</button>
-        <button id="btnMoves" class="btn btn-secondary">Movimientos</button>
-    </div>
+    <ul class="nav nav-pills nav-fill ">
+      <li class="nav-item">
+        <button id="btnInfo" class="btn active btn-primary me-2" >Información General</button>
+      </li>
+      <li class="nav-item">
+        <button id="btnStats" class="btn me-2">Estadísticas</button>
+      </li>
+      <li class="nav-item">
+        <button id="btnMoves" class="btn">Movimientos</button>
+      </li>
+    </ul>
 
-    <div id="infoSection" class="row g-3 justify-content-around">
+    <div id="infoSection" class="row g-3 justify-content-around ">
         <div class="col-md-6">
-            <h5 class="fw-medium mt-3">Tipo</h5>
-            <div class="d-flex flex-wrap justify-content-around">${tipo}</div>
+            <h5 class="text-center mt-3 fw-bold">Tipo</h5>
+            <div class="d-flex flex-wrap justify-content-around fw-semibold">${tipo}</div>
 
-            <h5 class="fw-medium mt-4">Altura</h5>
-            <p>${pokemon.altura.toUpperCase()}</p>
+            <h5 class="text-center mt-4 fw-bold">Altura</h5>
+            <div class="d-flex justify-content-center">
+              <p class="badge fs-4 fw-semibold" style="background-color: #1c1f3f;">
+                ${pokemon.altura.toUpperCase()}
+              </p>
+            </div>
 
-            <h5 class="fw-medium mt-4">Peso</h5>
-            <p>${pokemon.peso.toUpperCase()}</p>
+            <h5 class="text-center mt-4 fw-bold">Peso</h5>
+            <div class="d-flex justify-content-center">
+              <p class="badge fs-4 fw-semibold" style="background-color: #1c1f3f;">
+                ${pokemon.peso.toUpperCase()}
+              </p>
+            </div>
         </div>
 
         <div class="col-md-6">
-            <h5 class="fw-medium mt-3">Habilidades</h5>
-            <p>${abilities.toUpperCase()}</p>
+            <h5 class="text-center  mt-3 fw-bold">Habilidades</h5>
+            <div class="row">
+              ${abilities}
+            </div>
 
-            <h5 class="fw-medium mt-4">Debilidades</h5>
+            <h5 class="text-center mt-4 fw-bold">Debilidades</h5>
             <div class="d-flex flex-wrap justify-content-around">${debilidades}</div>
         </div>
     </div>
 
-    <div id="statsSection" class="row justify-content-around" style="display: none;">
-        <div class="col-md-10">
-            <h3>Estadísticas</h3>
+    <div id="statsSection" class="row justify-content-around " style="display: none;">
+        <div class="col-md-12">
             <div class="vstack gap-3">${stats}</div>
         </div>
     </div>
 
     <div id="movesSection" class="row justify-content-around" style="display: none;">
-        <div class="col-md-8">
-            <h5>Movimientos principales</h5>
-            <ul class="list-unstyled">${moves}</ul>
+      <div class="col-md-12">
+        <h5 class="text-center tfw-medium mt-3 fw-bold">Movimientos principales</h5>
+        <div class="row">
+          ${moves}
         </div>
+      </div>
     </div>
     `;
 
@@ -160,20 +198,38 @@ export async function showPokemonDetails(id) {
 
   btnInfo.addEventListener('click', () => {
     infoSection.style.display = 'flex';
+    btnInfo.classList.add('active');
+    btnInfo.classList.add('btn-primary');
     statsSection.style.display = 'none';
+    btnStats.classList.remove('active');
+    btnStats.classList.remove('btn-primary');
     movesSection.style.display = 'none';
+    btnMoves.classList.remove('active');
+    btnMoves.classList.remove('btn-primary');
   });
 
   btnStats.addEventListener('click', () => {
     infoSection.style.display = 'none';
+    btnInfo.classList.remove('active');
+    btnInfo.classList.remove('btn-primary');
     statsSection.style.display = 'flex';
+    btnStats.classList.add('active');
+    btnStats.classList.add('btn-primary');
     movesSection.style.display = 'none';
+    btnMoves.classList.remove('active');
+    btnMoves.classList.remove('btn-primary');
   });
 
   btnMoves.addEventListener('click', () => {
     infoSection.style.display = 'none';
+    btnInfo.classList.remove('active');
+    btnInfo.classList.remove('btn-primary');
     statsSection.style.display = 'none';
+    btnStats.classList.remove('active');
+    btnStats.classList.remove('btn-primary');
     movesSection.style.display = 'flex';
+    btnMoves.classList.add('active');
+    btnMoves.classList.add('btn-primary');
   });
 
   // Mostrar modal

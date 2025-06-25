@@ -321,7 +321,7 @@ body {
     border-radius: 5px;
     font-weight: 700;
     font-family: 'Rockwell Nova', sans-serif;
-    gap: 10px;
+    margin: 0 10px;
 }
 
 

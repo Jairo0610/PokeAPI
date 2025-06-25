@@ -223,19 +223,23 @@ estilos para el modal de estadisticas de los pokemones
 }
 
 
-
-
 /* ---------------------- */
 
 /* estilos para el logo de pokedex */
-.pokedex-logo {
-    max-height: 200px;
-    height: auto;
-    width: auto;
+.pokedex-header {
+    padding: 0.5rem 0;
 }
 
+.pokedex-logo {
+    max-height: 200px;
+    width: auto;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Ajuste para pantallas pequeñas */
 @media (max-width: 576px) {
     .pokedex-logo {
-        max-height: 100px;
+        max-height: 80px;
     }
 }

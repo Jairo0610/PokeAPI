@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="../PokeAPI/Recursos/pokeballNumeracion.svg" alt="Icono" width="30" style="vertical-align: middle; margin-right: 10px;">
+  <img src="https://raw.githubusercontent.com/Jairo0610/PokeAPI/refs/heads/main/Recursos/pokeballNumeracion.svg" alt="Icono" width="40" style="vertical-align: middle; margin-right: 10px;">
   Pokédex App
 </h1>
 

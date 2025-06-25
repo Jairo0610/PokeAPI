@@ -185,7 +185,7 @@ export class Pokedex {
         const pokeNombre = document.createElement('h3');
         const contenedorPokeTipo = document.createElement('div');
         const btnDetalles = document.createElement('button');
-        btnDetalles.innerText = "Más Detalles";
+        btnDetalles.innerHTML = "<i class='bx bx-search-alt' style='color:#ffffff'  ></i>   Más Detalles";
 
         contenedorPokeTipo.innerHTML = "";
 

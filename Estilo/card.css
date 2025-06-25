@@ -1,10 +1,16 @@
-
 @import url('https://fonts.cdnfonts.com/css/montserrat');
 @import url('https://fonts.cdnfonts.com/css/arcade-classic');
 @import url('https://fonts.cdnfonts.com/css/rockwell-nova');
 
 body {
     background-color: #030627;
+
+    background-image: url('../Recursos/bg.svg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
 }
 
 .imgPoke:hover {
@@ -270,7 +276,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    
+
 }
 
 .pokemonTipo {
@@ -368,91 +374,96 @@ estilos para el modal de estadisticas de los pokemone
 
 /* === TRAINER CARDS =============yanira===========a*/
 #entrenadores h2 {
-  font-family: 'Rockwell Nova Extra Bold', sans-serif;
-  color: #FEF9FF;
+    font-family: 'Rockwell Nova Extra Bold', sans-serif;
+    color: #FEF9FF;
 }
-.trainer-card {
-  /* Copia exacta de .card__pokemon excepto el background-image */
-  background-color: #010215;
-  border: 2px solid transparent;
-  border-radius: 15px;
-  box-shadow: 2px 2px 6px rgba(53, 51, 51, 0.6);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  
-  padding: 20px;        /* igual que .card__pokemon */
-  height: 100%;         /* ocupa toda la altura */
-  box-sizing: border-box;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-image: none !important;
+.trainer-card {
+    /* Copia exacta de .card__pokemon excepto el background-image */
+    background-color: #010215;
+    border: 2px solid transparent;
+    border-radius: 15px;
+    box-shadow: 2px 2px 6px rgba(53, 51, 51, 0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+
+    padding: 20px;
+    /* igual que .card__pokemon */
+    height: 100%;
+    /* ocupa toda la altura */
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: none !important;
 }
 
 
 .trainer-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 10px #605DFF;
+    transform: translateY(-5px);
+    box-shadow: 0 0 10px #605DFF;
 }
+
 .trainer-avatar {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 1rem;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
 }
+
 .trainer-name {
-  font-family: 'Rockwell Nova', sans-serif;
-  font-size: 1.3rem;
-  color: #FEF9FF;
-  margin: .3rem 0;
+    font-family: 'Rockwell Nova', sans-serif;
+    font-size: 1.3rem;
+    color: #FEF9FF;
+    margin: .3rem 0;
 }
+
 .trainer-id {
-  font-size: .9rem;
-  color: #AAA;
-  margin-bottom: .5rem;
+    font-size: .9rem;
+    color: #AAA;
+    margin-bottom: .5rem;
 }
+
 .trainer-hobby {
-  font-size: .85rem;
-  color: #CCC;
+    font-size: .85rem;
+    color: #CCC;
 }
 
 #btnMostrarEntrenadores {
-  margin-right: .5rem;
+    margin-right: .5rem;
 }
 
 /* Ocultar todo al inicio */
 #entrenadores,
 #mis-acompanantes {
-  display: none;
+    display: none;
 }
 
 .trainer-code {
-  font-size: .9rem;
-  color: #AAA;
-  margin-bottom: .5rem;
+    font-size: .9rem;
+    color: #AAA;
+    margin-bottom: .5rem;
 }
 
 
 /* === NUEVO: selector y avatar favorito === */
 .favorite-select {
-  margin-top: 0.5rem;
-  padding: 0.25rem;
-  width: 100%;
-  max-width: 200px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+    margin-top: 0.5rem;
+    padding: 0.25rem;
+    width: 100%;
+    max-width: 200px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
 }
 
 .favorite-pokemon-img {
-  margin-top: 0.5rem;
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 2px solid #666;
+    margin-top: 0.5rem;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #666;
 }
 
 /*-------------yanira---------------------c*/
-
-

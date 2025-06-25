@@ -38,7 +38,7 @@ export class Pokedex {
         const contenedorID = document.createElement('div');
         const pokemonID = document.createElement('p');
         const imgPokeBall = document.createElement('img');
-        imgPokeBall.src = "https://jairo0610.github.io/PokeAPI/Recursos/pokeballNumeracion.svg";
+        imgPokeBall.src = "./JavaScript/Recursos/pokeballNumeracion.svg";
         const numID = document.createElement('span');
 
         const btnAcompanante = document.createElement("p");
@@ -243,7 +243,7 @@ export class Pokedex {
         card.appendChild(this.#generarHeaderCard(pokemon));
         card.appendChild(this.#generarPokemonImage(pokemon));
         card.appendChild(this.#generarInformacionGeneral(pokemon));
-        card.style.backgroundImage = `url('https://jairo0610.github.io/PokeAPI/Recursos/pokeball.svg'), linear-gradient(to top, ${coloresTipos[pokemon.tipo[0]]}, #010215, #010215)`;
+        card.style.backgroundImage = `url('./JavaScript/Recursos/pokeball.svg'), linear-gradient(to top, ${coloresTipos[pokemon.tipo[0]]}, #010215, #010215)`;
 
         card.addEventListener("mouseenter", () => {
             card.style.transform = "scale(0.95)";

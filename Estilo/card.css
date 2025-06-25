@@ -357,10 +357,10 @@ estilos para el modal de estadisticas de los pokemone
     width: 60%;
     color: white;
     font-family: ''Rockwell Nova', sans-serif;';
-    position: relative;
+    position:relative;
 }
 .fontModalTitle{
-    font-family: 'Rockwell Nova Extra Bold', sans-serif;
+    font-family: 'Rockwell Nova Extra Bold',sans-serif;
 }
 .cerrar {
     color: white;

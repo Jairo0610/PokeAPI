@@ -311,12 +311,18 @@ class Pokedex {
         container.innerHTML = "";
         lista.forEach(pokemon => {
             const col = document.createElement("div");
-            col.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3");
+            col.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3" , "pokemon-card");
             col.style = "padding: 10px";
             col.appendChild(this.#dibujarPokemon(pokemon));
             container.appendChild(col);
+
+                // Dispara la animación en el siguiente ciclo de render
+                requestAnimationFrame(() => {
+                    col.classList.add("mostrar");
+                });
         });
     }
+    
 
 
 

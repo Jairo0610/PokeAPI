@@ -1,6 +1,6 @@
 // Función para cargar archivo JSON de pokemones
 export async function getPokeJSON() {
-    const response = await fetch('https://jairo0610.github.io/PokeAPI/JavaScript/dataPokemon.json');
+    const response = await fetch('./JavaScript/dataPokemon.json');
     if (!response.ok) throw new Error('Error al cargar pokemons.json');
     const data = await response.json();
     return data;

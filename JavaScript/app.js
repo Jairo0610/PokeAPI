@@ -584,6 +584,7 @@ async function showPokemonDetails(id) {
     }
 
     const pokemonModalLabel = document.getElementById("pokemonModalLabel");
+    pokemonModalLabel.classList.add('fontModalTitle')
     const pokemonDetails = document.getElementById("pokemonDetails");
     pokemonModalLabel.textContent = pokemon.nombre.toUpperCase();
 

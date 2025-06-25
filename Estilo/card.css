@@ -345,17 +345,23 @@ estilos para el modal de estadisticas de los pokemone
 }
 
 .modal-contenido {
-    background-color: #010215;
+    background-image: url('../Recursos/bg.svg');
+    background-attachment: fixed;
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat; 
     margin: 5% auto;
     padding: 20px;
     border: 2px solid white;
     border-radius: 10px;
     width: 60%;
     color: white;
-    font-family: 'Montserrat', sans-serif;
-    position: relative;
+    font-family: ''Rockwell Nova', sans-serif;';
+    position:relative;
 }
-
+.fontModalTitle{
+    font-family: 'Rockwell Nova Extra Bold',sans-serif;
+}
 .cerrar {
     color: white;
     position: absolute;

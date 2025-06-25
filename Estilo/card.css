@@ -347,21 +347,23 @@ estilos para el modal de estadisticas de los pokemone
 .modal-contenido {
     background-image: url('../Recursos/bg.svg');
     background-attachment: fixed;
-    background-size: cover; 
+    background-size: cover;
     background-position: center;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
     margin: 5% auto;
     padding: 20px;
     border: 2px solid white;
     border-radius: 10px;
     width: 60%;
     color: white;
-    font-family: ''Rockwell Nova', sans-serif;';
-    position:relative;
+    font-family: '' Rockwell Nova', sans-serif;';
+    position: relative;
 }
-.fontModalTitle{
-    font-family: 'Rockwell Nova Extra Bold',sans-serif;
+
+.fontModalTitle {
+    font-family: 'Rockwell Nova Extra Bold', sans-serif;
 }
+
 .cerrar {
     color: white;
     position: absolute;
@@ -373,14 +375,13 @@ estilos para el modal de estadisticas de los pokemone
 }
 
 
-/* === TRAINER CARDS =============yanira===========a*/
+/* === TRAINER CARDS */
 #entrenadores h2 {
     font-family: 'Rockwell Nova Extra Bold', sans-serif;
     color: #FEF9FF;
 }
 
 .trainer-card {
-    /* Copia exacta de .card__pokemon excepto el background-image */
     background-color: #010215;
     border: 2px solid transparent;
     border-radius: 15px;
@@ -388,11 +389,8 @@ estilos para el modal de estadisticas de los pokemone
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 
     padding: 20px;
-    /* igual que .card__pokemon */
     height: 100%;
-    /* ocupa toda la altura */
     box-sizing: border-box;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -448,7 +446,7 @@ estilos para el modal de estadisticas de los pokemone
 }
 
 
-/* === NUEVO: selector y avatar favorito === */
+/* === selector y avatar favorito === */
 .favorite-select {
     margin-top: 0.5rem;
     padding: 0.25rem;
@@ -467,4 +465,27 @@ estilos para el modal de estadisticas de los pokemone
     border: 2px solid #666;
 }
 
-/*-------------yanira---------------------c*/
+
+/* barra de busqueda */
+
+#buscador {
+    border: 2px solid #40bb88;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    background-color: #fff;
+    color: #3B4CCA;
+    font-weight: bold;
+    font-family: 'Segoe UI', sans-serif;
+    transition: all 0.3s ease;
+}
+
+#buscador::placeholder {
+    color: #888;
+}
+
+#buscador:focus {
+    outline: none;
+    border-color: #FFCC00;
+    box-shadow: 0 0 20px #FFCC00;
+}

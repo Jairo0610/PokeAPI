@@ -1,7 +1,7 @@
+/*--------------------------yanira--------a*/
 import {
-    openDB,
     addOrUpdateTrainer,
-    getAllTrainers
+    getAllTrainers,
 } from './dbService.js';
 
 // Datos de 5 entrenadores
@@ -45,17 +45,17 @@ const trainersData = [
 
 // IIFE que “siembra” IndexedDB en la primera carga
 (async () => {
-  const existing = await getAllTrainers();
-  if (existing.length === 0) {
-    await Promise.all(trainersData.map(t => addOrUpdateTrainer(t)));
-  }
+    const existing = await getAllTrainers();
+    if (existing.length === 0) {
+        await Promise.all(trainersData.map(t => addOrUpdateTrainer(t)));
+    }
 })();
 
 
 let pokedex;
 
 let showingFavorites = false;
-
+/*------------------------yanira--------------c*/
 
 
 //función para extraer los datos del archivo JSON creado de la clase pokemon
@@ -133,7 +133,7 @@ class Pokedex {
 
         headerContenedor.appendChild(contendorBtnFavorite);
         headerContenedor.appendChild(contenedorID);
-        
+
         return headerContenedor;
     }
 
@@ -322,13 +322,80 @@ class Pokedex {
 
 }
 
+// jairo
 
+const coloresTipos = {
+    normal: '#A8A77A',
+    fire: '#EE8130',
+    water: '#6390F0',
+    electric: '#F7D02C',
+    grass: '#7AC74C',
+    ice: '#96D9D6',
+    fighting: '#C22E28',
+    poison: '#A33EA1',
+    ground: '#E2BF65',
+    flying: '#A98FF3',
+    psychic: '#F95587',
+    bug: '#A6B91A',
+    rock: '#B6A136',
+    ghost: '#735797',
+    dragon: '#6F35FC',
+    dark: '#705746',
+    steel: '#B7B7CE',
+    fairy: '#D685AD',
+};
+
+const tipoEsp = {
+    normal: 'normal',
+    fire: 'fuego',
+    water: 'agua',
+    electric: 'electrico',
+    grass: 'planta',
+    ice: 'hielo',
+    fighting: 'pelea',
+    poison: 'veneno',
+    ground: 'tierra',
+    flying: 'volador',
+    psychic: 'psiquico',
+    bug: 'bicho',
+    rock: 'roca',
+    ghost: 'fantasma',
+    dragon: 'dragon',
+    dark: 'oscuro',
+    steel: 'acero',
+    fairy: 'hada',
+}
+
+//Retorna el color del progress dependiendo del nombre de stast
+function colorProgress(nameStats) {
+    if (nameStats == "HP") {
+        return "#038803"
+    }
+    else if (nameStats == "ATTACK") {
+        return "#d21f08"
+    }
+    else if (nameStats == "DEFENSE") {
+        return "#007bff"
+    }
+    else if (nameStats == "SPECIAL-ATTACK") {
+        return "#fd7e14"
+    }
+    else if (nameStats == "SPECIAL-DEFENSE") {
+        return "#17a2b8"
+    }
+    else if (nameStats == "SPEED") {
+        return "#ffc107"
+    }
+}
+
+
+/*------------------------yanira--------------a*/
 /**
  * Oculta todas las secciones: entrenadores, acompañantes y Poké–Dex.
  */
 function hideAllSections() {
-    document.getElementById('entrenadores').style.display      = 'none';
-    document.getElementById('mis-acompanantes').style.display  = 'none';
+    document.getElementById('entrenadores').style.display = 'none';
+    document.getElementById('mis-acompanantes').style.display = 'none';
     document.getElementById('pokedex-container').style.display = 'none';
 }
 
@@ -336,6 +403,10 @@ function hideAllSections() {
 // --- funciones para cambiar de vista ---
 function showFavorites() {
     hideAllSections();
+
+    // 0) Muestro el buscador en la vista de Poké–Dex Favoritos
+    document.getElementById('buscador-container').style.display = 'block';
+
     showingFavorites = true;
     document.getElementById('pokedex-container').style.display = 'block';
 
@@ -353,6 +424,10 @@ function showFavorites() {
 
 function showAll() {
     hideAllSections();
+
+    // 0) Muestro el buscador en la vista de Poké–Dex completa
+    document.getElementById('buscador-container').style.display = 'block';
+
     showingFavorites = false;
     document.getElementById('mensaje-vacio').style.display = 'none';
     document.getElementById('pokedex-container').style.display = 'block';
@@ -366,66 +441,127 @@ function showAll() {
  * Muestra solo la sección de entrenadores,
  * ocultando Pokémon y acompañantes.
  */
-function showTrainers() {
+async function showTrainers() {
     hideAllSections();
+
+    // 0) Oculto el buscador al entrar a entrenadores
+    document.getElementById('buscador-container').style.display = 'none';
+    hideAllSections();
+
+    // ——— 2.1) Limpia trainers que tengan un favoritePokemonId ya no en favoritos ———
+    const favoritosIds = obtenerFavoritos();
+    const allTrainers = await getAllTrainers();
+    await Promise.all(
+        allTrainers
+            .filter(t => t.favoritePokemonId && !favoritosIds.includes(t.favoritePokemonId))
+            .map(t => {
+                t.favoritePokemonId = null;
+                return addOrUpdateTrainer(t);
+            })
+    );
+
+    // ——— 2.2) Renderiza ahora con datos limpios ———
+    await renderTrainerCards();
+
     document.getElementById('entrenadores').style.display = 'block';
 }
 
 
-window.addEventListener("DOMContentLoaded", async () => {
-    
-    const trainersContainer = document.getElementById("trainers-container");
-    // 1) Leer de la DB
+
+
+let datosGlobales, trainersContainer;
+
+async function renderTrainerCards() {
     const trainersFromDB = await getAllTrainers();
-    // 2) Renderizar
-    trainersContainer.innerHTML = trainersFromDB.map(t => `
+    const favoritosIds = obtenerFavoritos();                                   // [4,12,…]
+    const assignedIds = trainersFromDB.map(t => t.favoritePokemonId).filter(Boolean);
+    const favoritosDatos = datosGlobales.filter(p => favoritosIds.includes(p.id));
+
+    trainersContainer.innerHTML = trainersFromDB.map(t => {
+        const assigned = favoritosDatos.find(p => p.id === t.favoritePokemonId);
+        const opciones = favoritosDatos.filter(p =>
+            p.id === t.favoritePokemonId || !assignedIds.includes(p.id)
+        );
+
+        return `
         <div class="col-12 col-sm-6 col-md-6 col-lg-4 d-flex">
             <div class="trainer-card flex-fill">
-                <img src="${t.avatar}" class="trainer-avatar" alt="${t.name}">
-                <h3 class="trainer-name">${t.name}</h3>
-                <p class="trainer-code">Código: ${t.code}</p>
-                <p class="trainer-hobby">${t.hobby}</p>
+            <img src="${t.avatar}" class="trainer-avatar" alt="${t.name}">
+            <h3 class="trainer-name">${t.name}</h3>
+            <p class="trainer-code">Código: ${t.code}</p>
+            <p class="trainer-hobby">${t.hobby}</p>
+
+            <label for="fav-${t.id}">Pokémon acompañante:</label>
+            <select id="fav-${t.id}" class="favorite-select" data-trainer-id="${t.id}">
+                <option value="">— ninguno —</option>
+                ${opciones.map(p => `
+                <option value="${p.id}" ${p.id === t.favoritePokemonId ? 'selected' : ''}>
+                    ${p.nombre.toUpperCase()}
+                </option>`).join('')}
+            </select>
+
+            ${assigned ? `
+                <img src="${assigned.sprites}" class="favorite-pokemon-img"
+                    alt="Pokémon de ${t.name}">`
+                : ``}
             </div>
-        </div>
-    `).join('');
+        </div>`;
+    }).join('');
+
+    // Reengancha los listeners
+    document.querySelectorAll('.favorite-select')
+        .forEach(sel => sel.addEventListener('change', onTrainerFavoriteChange));
+}
 
 
-    
-    const datos = await getPokeJSON();
+
+
+
+window.addEventListener("DOMContentLoaded", async () => {
+    // ————— 0) Inicializa referencias y datos globales —————
+    trainersContainer = document.getElementById("trainers-container");
+    datosGlobales = await getPokeJSON();
+
+    // ————— 1) Carga y render de la PokéDex —————
     pokedex = new Pokedex();
-    pokedex.cargarDatosPokemons(datos);
+    pokedex.cargarDatosPokemons(datosGlobales);
     pokedex.dibujarPokedex();
 
+    // ————— 2) Render inicial de las cards de entrenadores —————
+    renderTrainerCards();
+
+    // ————— 3) Tus listeners existentes —————
     document.getElementById("btnMostrarEntrenadores")
         .addEventListener("click", showTrainers);
-
-
-    //favoritos
     document.getElementById("btnMostrarFavoritos")
         .addEventListener("click", showFavorites);
-
     document.getElementById("btnMostrarTodos")
         .addEventListener("click", showAll);
 
-
-    //barra de busqueda
+    // ————— Buscador —————
     const buscador = document.getElementById("buscador");
 
     buscador.addEventListener("input", () => {
         const texto = buscador.value.toLowerCase().trim();
-        const todos = pokedex.obtenerTodos();
 
-        // Filtrar por nombre 
-        const filtrados = todos.filter(pokemon => {
-            const nombre = pokemon.nombre.toLowerCase();
-            return nombre.includes(texto);
-        });
+        // 1) Base sobre la que buscamos: todos o solo favoritos
+        let base;
+        if (showingFavorites) {
+            const favIds = obtenerFavoritos();  // array de IDs favoritos
+            base = pokedex.obtenerTodos().filter(p => favIds.includes(p.id));
+        } else {
+            base = pokedex.obtenerTodos();
+        }
 
+        // 2) Filtrado por nombre
+        const filtrados = base.filter(p => p.nombre.toLowerCase().includes(texto));
         const mensajeVacio = document.getElementById("mensaje-vacio");
 
         if (filtrados.length === 0) {
             mensajeVacio.style.display = "block";
-            mensajeVacio.textContent = "No se encontraron pokemones con ese criterio.";
+            mensajeVacio.textContent = showingFavorites
+                ? "No se encontraron favoritos con ese criterio."
+                : "No se encontraron pokemones con ese criterio.";
             document.getElementById("data-pokemons").innerHTML = "";
         } else {
             mensajeVacio.style.display = "none";
@@ -434,83 +570,123 @@ window.addEventListener("DOMContentLoaded", async () => {
     });
 
 
-
 });
+
+/*------------------------yanira--------------c*/
 
 
 // crear un modal para mostrar los detalles faltantes de los pokemones
-function showPokemonDetails(id) {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-        .then(res => res.json())
-        .then(pokemon => {
-            const pokemonModalLabel = document.getElementById("pokemonModalLabel");
-            const pokemonDetails = document.getElementById("pokemonDetails");
+export async function showPokemonDetails(id) {
+    const pokemons = await getPokeJSON();
+    const pokemon = pokemons.find(p => p.id === id);
 
-            pokemonModalLabel.textContent = pokemon.name.toUpperCase();
+    if (!pokemon) {
+        console.error(`No se encontró el Pokémon con ID ${id}`);
+        return;
+    }
 
-            const types = pokemon.types.map(t => t.type.name).join(', ');
-            const abilities = pokemon.abilities.map(a => a.ability.name).join(', ');
-            const stats = pokemon.stats.map(s => `<li>${s.stat.name}: ${s.base_stat}</li>`).join('');
-            const moves = pokemon.moves.slice(0, 5).map(m => `<li>${m.move.name}</li>`).join('');
+    const pokemonModalLabel = document.getElementById("pokemonModalLabel");
+    const pokemonDetails = document.getElementById("pokemonDetails");
+    pokemonModalLabel.textContent = pokemon.nombre.toUpperCase();
 
-            pokemonDetails.innerHTML = `
-        <div class="text-center">
-          <img src="${pokemon.sprites.other['official-artwork'].front_default}" class="img-fluid mb-3" style="max-height: 200px;">
+    let tipo = ``
+    await pokemon.tipo.forEach(t => {
+        tipo += `<h4 class = "pokemonTipo fs-4 font-monospace" style="background-color: ${coloresTipos[t]}">${tipoEsp[t].toUpperCase()}</h4>`
+    });
+    let debilidades = ``
+    await pokemon.debilidades.forEach(d => {
+        debilidades += `<h4 class = "pokemonTipo fs-4 font-monospace" style="background-color: ${coloresTipos[d]}">${tipoEsp[d].toUpperCase()}</h4>`
+    });
+
+
+    const abilities = pokemon.habilidades.join(', ');
+    const stats = pokemon.stats.map(s => `
+        <div class="p-2">
+            <h5 class="fw-medium font-monospace">${s.nombre.toUpperCase()}</h5>
+            <div class="progress" role="progressbar" aria-label="Barra de progreso" aria-valuemin="0" aria-valuemax="255" style="height: 25px; background-color: #ffffff00;">
+                <div class="progress-bar progress-bar-striped font-monospace fw-medium fs-5" style="width: ${(s.valor / 255) * 100}%; background-color: ${colorProgress(s.nombre.toUpperCase())};">
+                    ${s.valor}
+                </div>
+            </div>
+        </div>`).join('');
+
+    const moves = pokemon.moves.map(m => `<li>${m}</li>`).join('');
+
+    pokemonDetails.innerHTML = `
+    <div class="text-center">
+        <img src="${pokemon.sprites}" class="img-fluid mb-3" style="max-height: 200px;">
+    </div>
+
+    <div class="mb-3 text-center">
+        <button id="btnInfo" class="btn btn-info me-2">Información General</button>
+        <button id="btnStats" class="btn btn-primary me-2">Estadísticas</button>
+        <button id="btnMoves" class="btn btn-secondary">Movimientos</button>
+    </div>
+
+    <div id="infoSection" class="row g-3 justify-content-around">
+        <div class="col-md-6">
+            <h5 class="fw-medium mt-3">Tipo</h5>
+            <div class="d-flex flex-wrap justify-content-around">${tipo}</div>
+
+            <h5 class="fw-medium mt-4">Altura</h5>
+            <p>${pokemon.altura.toUpperCase()}</p>
+
+            <h5 class="fw-medium mt-4">Peso</h5>
+            <p>${pokemon.peso.toUpperCase()}</p>
         </div>
 
-        <div class="mb-3 text-center">
-          <button id="btnInfo" class="btn btn-info me-2">Información General</button>
-          <button id="btnStats" class="btn btn-primary me-2">Estadísticas</button>
-          <button id="btnMoves" class="btn btn-secondary">Movimientos</button>
+        <div class="col-md-6">
+            <h5 class="fw-medium mt-3">Habilidades</h5>
+            <p>${abilities.toUpperCase()}</p>
+
+            <h5 class="fw-medium mt-4">Debilidades</h5>
+            <div class="d-flex flex-wrap justify-content-around">${debilidades}</div>
         </div>
+    </div>
 
-        <div id="infoSection">
-          <p><strong>Tipo:</strong> ${types}</p>
-          <p><strong>Altura:</strong> ${pokemon.height / 10} m</p>
-          <p><strong>Peso:</strong> ${pokemon.weight / 10} kg</p>
-          <p><strong>Habilidades:</strong> ${abilities}</p>
+    <div id="statsSection" class="row justify-content-around" style="display: none;">
+        <div class="col-md-10">
+            <h3>Estadísticas</h3>
+            <div class="vstack gap-3">${stats}</div>
         </div>
+    </div>
 
-        <div id="statsSection" style="display: none;">
-          <h5>Estadísticas</h5>
-          <ul>${stats}</ul>
+    <div id="movesSection" class="row justify-content-around" style="display: none;">
+        <div class="col-md-8">
+            <h5>Movimientos principales</h5>
+            <ul class="list-unstyled">${moves}</ul>
         </div>
+    </div>
+    `;
 
-        <div id="movesSection" style="display: none;">
-          <h5>Movimientos principales</h5>
-          <ul>${moves}</ul>
-        </div>
-      `;
+    // Manejo de secciones
+    const btnInfo = document.getElementById('btnInfo');
+    const btnStats = document.getElementById('btnStats');
+    const btnMoves = document.getElementById('btnMoves');
+    const infoSection = document.getElementById('infoSection');
+    const statsSection = document.getElementById('statsSection');
+    const movesSection = document.getElementById('movesSection');
 
-            // Manejo de secciones
-            const btnInfo = document.getElementById('btnInfo');
-            const btnStats = document.getElementById('btnStats');
-            const btnMoves = document.getElementById('btnMoves');
-            const infoSection = document.getElementById('infoSection');
-            const statsSection = document.getElementById('statsSection');
-            const movesSection = document.getElementById('movesSection');
+    btnInfo.addEventListener('click', () => {
+        infoSection.style.display = 'flex';
+        statsSection.style.display = 'none';
+        movesSection.style.display = 'none';
+    });
 
-            btnInfo.addEventListener('click', () => {
-                infoSection.style.display = 'block';
-                statsSection.style.display = 'none';
-                movesSection.style.display = 'none';
-            });
+    btnStats.addEventListener('click', () => {
+        infoSection.style.display = 'none';
+        statsSection.style.display = 'flex';
+        movesSection.style.display = 'none';
+    });
 
-            btnStats.addEventListener('click', () => {
-                infoSection.style.display = 'none';
-                statsSection.style.display = 'block';
-                movesSection.style.display = 'none';
-            });
+    btnMoves.addEventListener('click', () => {
+        infoSection.style.display = 'none';
+        statsSection.style.display = 'none';
+        movesSection.style.display = 'flex';
+    });
 
-            btnMoves.addEventListener('click', () => {
-                infoSection.style.display = 'none';
-                statsSection.style.display = 'none';
-                movesSection.style.display = 'block';
-            });
-
-            // Mostrar modal
-            document.getElementById("modal-detalles").style.display = "block";
-        });
+    // Mostrar modal
+    document.getElementById("modal-detalles").style.display = "block";
 }
 
 
@@ -543,15 +719,28 @@ function esFavorito(id) {
     return favoritos.includes(id);
 }
 
-function alternarFavorito(id) {
+/*------------------------yanira--------------a*/
+async function alternarFavorito(id) {
     const favoritos = obtenerFavoritos();
 
     if (favoritos.includes(id)) {
         // Si ya estaba, lo quitamos
         const nuevos = favoritos.filter(fav => fav !== id);
         guardarFavoritos(nuevos);
+
+        // Además, elimina de Listeners cualquier trainer que tuviera este id
+        const all = await getAllTrainers();
+        await Promise.all(
+            all
+                .filter(t => t.favoritePokemonId === id)
+                .map(async t => {
+                    t.favoritePokemonId = null;
+                    await addOrUpdateTrainer(t);
+                })
+        );
+
         //return;
-    } else{
+    } else {
 
         // Si no estaba y ya hay 6, no añadimos
         if (favoritos.length >= 6) {
@@ -565,8 +754,13 @@ function alternarFavorito(id) {
 
     }
 
+    // refresca vistas
+    if (document.getElementById('entrenadores').style.display !== 'none') {
+        await renderTrainerCards();
+    }
+
     if (showingFavorites) {
-        
+
         showFavorites();
     }
 }
@@ -596,3 +790,20 @@ function showLimitAlert(message) {
     }, 5000);
 }
 
+
+async function onTrainerFavoriteChange(e) {
+    const trainerId = Number(e.target.dataset.trainerId);
+    const pokemonId = e.target.value === "" ? null : Number(e.target.value);
+
+    // 1) Lee, actualiza y guarda SOLO en el store 'trainers'
+    const all = await getAllTrainers();
+    const trainer = all.find(t => t.id === trainerId);
+    trainer.favoritePokemonId = pokemonId;        // asigna, cambia o borra (null)
+    await addOrUpdateTrainer(trainer);
+
+    // 2) Refresca la UI
+    renderTrainerCards();
+}
+
+
+/*------------------------yanira----------------------c*/

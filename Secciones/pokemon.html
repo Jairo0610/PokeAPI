@@ -21,17 +21,37 @@
 
 <body class="bg-dark text-white">
 
+    <!-- Título Pokedex -->
+    <div class="pokedex-header text-center py-2">
+        <img src="../Recursos/POKEDEX-TITLE.svg" alt="Pokedex Logo" class="pokedex-logo">
+    </div>
+
     <!-- Buscador -->
-    <div class="container my-4 text-center">
+    <div id="buscador-container" class="container my-4 text-center">
         <input type="text" id="buscador" class="form-control mx-auto" style="max-width: 300px;"
             placeholder="Buscar Pokémon por nombre">
     </div>
 
+    <!-- Indicadores de funcionalidades -->
+    <div class="container text-center mb-3">
+        <div class="d-flex justify-content-center gap-4">
+            <div>
+                <i class='bx bxs-heart text-danger fs-3'></i>
+                <div class="text-white-50 small">Acompañantes</div>
+            </div>
+        </div>
+    </div>
+    <!------------------------yanira====================c -->
+
     <!-- Botones -->
     <div class="container text-center mb-4">
-        <button id="btnMostrarEntrenadores" class="btnDetalles me-2">Mostrar Entrenadores</button>
-        <button id="btnMostrarFavoritos" class="btnDetalles me-2">Mostrar Favoritos</button>
-        <button id="btnMostrarTodos" class="btnDetalles">Mostrar Todos</button>
+        <button id="btnMostrarTodos" class="btnDetalles">Pokedex</button>
+        <button id="btnMostrarFavoritos" class="btnDetalles me-2">Pokemones Acompañantes</button>
+        <!------------------------yanira====================a -->
+        <button id="btnMostrarEntrenadores" class="btnDetalles me-2">Entrenadores</button>
+        <!------------------------yanira====================c -->
+
+
 
 
     </div>
@@ -41,6 +61,8 @@
         Aún no tienes pokemones favoritos
     </div>
 
+
+    <!------------------------yanira====================a -->
 
     <!-- === SECCIÓN ENTRENADORES === -->
     <section id="entrenadores" class="container my-5 text-white" style="display:none">
@@ -58,7 +80,7 @@
         <ul id="listAcompanantes" class="list-group list-group-flush"></ul>
     </section>
 
-
+    <!------------------------yanira====================c -->
 
     <!-- espacio para las cartas de los pokemones -->
     <div id="pokedex-container" class="container">
@@ -76,13 +98,13 @@
         </div>
 
 
-    <!-- Para la alerta de límite de favoritos -->
-    <div id="limit-alert-placeholder"
-        class="position-fixed top-0 start-50 translate-middle-x mt-3"
-        style="z-index: 2000; width: 90%; max-width: 400px;">
-    </div>
+        <!------------------------yanira====================a -->
+        <!-- Para la alerta de límite de favoritos -->
+        <div id="limit-alert-placeholder" class="position-fixed top-0 start-50 translate-middle-x mt-3"
+            style="z-index: 2000; width: 90%; max-width: 400px;">
+        </div>
 
-
+        <!------------------------yanira====================c -->
 </body>
 
 </html>

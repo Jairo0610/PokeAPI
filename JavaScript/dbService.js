@@ -1,3 +1,5 @@
+/*------------------------yanira----------------------a*/
+
 // dbService.js
 const DB_NAME    = 'PokeAPI';
 const DB_VERSION = 1;
@@ -13,10 +15,11 @@ export function openDB() {
     req.onsuccess = () => resolve(req.result);
     req.onupgradeneeded = () => {
       const db = req.result;
-      // Si no existe el store trainers, lo creamos
+
+      // ——— store de trainers (ya existía) ———
       if (!db.objectStoreNames.contains(STORE_NAME)) {
         const store = db.createObjectStore(STORE_NAME, {
-          keyPath: 'id',      // usaremos id numérico o string como PK
+          keyPath: 'id',
           autoIncrement: false
         });
         store.createIndex('name', 'name', { unique: false });
@@ -48,6 +51,7 @@ export async function getAllTrainers() {
   });
 }
 
+
 /** Borra un entrenador según su id. */
 export async function removeTrainer(id) {
   const db = await openDB();
@@ -55,3 +59,5 @@ export async function removeTrainer(id) {
   tx.objectStore(STORE_NAME).delete(id);
   return tx.done;
 }
+
+/*------------------------yanira----------------------c*/

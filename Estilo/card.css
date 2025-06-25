@@ -15,7 +15,7 @@ body {
     background-image: url(pokeball.svg), linear-gradient(to top, #ee812f, #010215, #010215);
     background-size: contain, cover;
     background-repeat: no-repeat;
-    border: 2px solid transparent;
+    border: 2px ridge white;
     border-radius: 15px;
     box-shadow: 2px 2px 6px rgba(53, 51, 51, 0.6);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
@@ -63,6 +63,10 @@ body {
 .card__header__favorite {
     margin: 0;
     font-size: 32px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
 }
 
 .agregarFavorito {
@@ -103,12 +107,105 @@ body {
     object-fit: contain;
 }
 
-.agregarFavorito img {
-    width: 32px;
-    height: 32px;
-    margin-right: 8px;
-    object-fit: contain;
+.agregarFavorito,
+.agregarAcompanante {
+    font-size: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    margin: 0;
+    transition: all 0.3s ease;
 }
+
+.agregarFavorito:hover,
+.agregarAcompanante:hover {
+    animation: tada 1s ease;
+    transform: scale(1.1);
+}
+
+@keyframes tada {
+    0% {
+        transform: scale(1) rotate(0);
+    }
+
+    15% {
+        transform: scale(1.05) rotate(2deg);
+    }
+
+    30% {
+        transform: scale(1.05) rotate(-2deg);
+    }
+
+    45% {
+        transform: scale(1.05) rotate(2deg);
+    }
+
+    60% {
+        transform: scale(1.05) rotate(-2deg);
+    }
+
+    75% {
+        transform: scale(1.05) rotate(2deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0);
+    }
+}
+
+.agregarFavorito i,
+.agregarAcompanante i {
+    font-size: 30px;
+    transition: all 0.3s ease;
+}
+
+.agregarFavorito i.bxs-heart {
+    animation: pulseHeart 2s ease infinite;
+}
+
+.agregarAcompanante i.bxs-star {
+    text-shadow: 0 0 12px rgba(241, 196, 15, 0.7);
+    animation: pulseStar 2s ease infinite;
+}
+
+@keyframes pulseHeart {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes pulseStar {
+    0% {
+        transform: scale(1) rotate(0);
+    }
+
+    25% {
+        transform: rotate(5deg);
+    }
+
+    50% {
+        transform: scale(1.1) rotate(0);
+    }
+
+    75% {
+        transform: rotate(-5deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0);
+    }
+}
+
 
 .pokemonImagen {
     width: 150px;
@@ -116,6 +213,7 @@ body {
     filter: saturate(170%);
     -webkit-filter: saturate(170%);
     -moz-filter: saturate(170%);
+    animation: float 3s ease-in-out infinite;
 }
 
 .pokemonImagenContenedor {
@@ -172,14 +270,6 @@ body {
     display: flex;
     justify-content: center;
     gap: 10px;
-}
-
-.tipoFuego {
-    background-color: #ff6f00;
-}
-
-.tipoAgua {
-    background-color: #009cff;
 }
 
 
@@ -241,5 +331,22 @@ estilos para el modal de estadisticas de los pokemones
 @media (max-width: 576px) {
     .pokedex-logo {
         max-height: 80px;
+    }
+}
+
+
+/*Animación suave para los pokemones en las cards */
+
+
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
     }
 }

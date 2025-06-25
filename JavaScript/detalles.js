@@ -1,6 +1,5 @@
 import { getPokeJSON } from './data.js';
 
-// import { coloresTipos } from './colores.js';
 
 const coloresTipos = {
   normal: '#A8A77A',

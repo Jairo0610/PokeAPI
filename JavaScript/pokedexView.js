@@ -42,8 +42,8 @@ export async function agregarAcompananteIndexed(pokemonId) {
                 </thead>
                 <tbody>
                     ${acompanantes.map(acomp => {
-                        const poke = pokemones.find(p => p.id === acomp.pokemonId);
-                        return `
+            const poke = pokemones.find(p => p.id === acomp.pokemonId);
+            return `
                             <tr>
                                 <td>${poke.id}</td>
                                 <td>${poke.nombre}</td>
@@ -57,7 +57,7 @@ export async function agregarAcompananteIndexed(pokemonId) {
                                 </td>
                             </tr>
                         `;
-                    }).join('')}
+        }).join('')}
                 </tbody>
             </table>
         `;

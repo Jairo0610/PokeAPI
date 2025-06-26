@@ -11,7 +11,7 @@ Una pokédex interactiva y animada con diseño moderno, donde puedes explorar la
 🎮 Sin instalaciones, sin configuraciones: solo entra y empieza a explorar. <br>
 🌐 [Página principal de la Pokédex](https://jairo0610.github.io/PokeAPI/)
 
-<img src="[../PokeAPI/Recursos/demo1.png](https://raw.githubusercontent.com/Jairo0610/PokeAPI/refs/heads/main/Recursos/demo1.png)">
+<img src="https://raw.githubusercontent.com/Jairo0610/PokeAPI/refs/heads/main/Recursos/demo1.png">
 
 ## ✨ Caracteristicas.
 

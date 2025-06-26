@@ -281,23 +281,39 @@ class Pokedex {
 
         return card;
     }
+dibujarPokedex() {
+    const isIndex = window.location.pathname.endsWith("index.html") || window.location.pathname === "/";
 
-    dibujarPokedex() {
+    if (isIndex) {
+        const containers = document.querySelectorAll(".data-pokemons");
+        const indices = [0, 3, 6];
+
+        containers.forEach((container, i) => {
+            container.innerHTML = "";
+
+            const pokemonIndex = indices[i];
+            if (this.#pokemons[pokemonIndex]) {
+                const col = document.createElement("div");
+                col.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3");
+                col.style.padding = "10px";
+                col.appendChild(this.#dibujarPokemon(this.#pokemons[pokemonIndex]));
+                container.appendChild(col);
+            }
+        });
+
+    } else {
         const container = document.getElementById("data-pokemons");
         container.innerHTML = "";
-
-
 
         this.#pokemons.forEach(pokemon => {
             const col = document.createElement("div");
             col.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3");
-            col.style = "padding: 10px"
-            col.appendChild(this.#dibujarPokemon(pokemon))
+            col.style.padding = "10px";
+            col.appendChild(this.#dibujarPokemon(pokemon));
             container.appendChild(col);
-        })
-
-
+        });
     }
+}
 
     //metodos para favoritos
     // Devuelve todos los pokemones (getter público)

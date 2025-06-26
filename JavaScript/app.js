@@ -1,4 +1,3 @@
-/*--------------------------yanira--------a*/
 import {
     addOrUpdateTrainer,
     getAllTrainers,
@@ -281,8 +280,10 @@ class Pokedex {
 
         return card;
     }
+
 dibujarPokedex() {
-    const isIndex = window.location.pathname.endsWith("index.html") || window.location.pathname === "/";
+    const path = window.location.pathname;
+    const isIndex = path.endsWith("index.html") || path === "/" || path.endsWith("PokeAPI/") || path.endsWith("PokeAPI");
 
     if (isIndex) {
         const containers = document.querySelectorAll(".data-pokemons");
@@ -290,7 +291,6 @@ dibujarPokedex() {
 
         containers.forEach((container, i) => {
             container.innerHTML = "";
-
             const pokemonIndex = indices[i];
             if (this.#pokemons[pokemonIndex]) {
                 const col = document.createElement("div");
@@ -300,20 +300,22 @@ dibujarPokedex() {
                 container.appendChild(col);
             }
         });
-
     } else {
         const container = document.getElementById("data-pokemons");
-        container.innerHTML = "";
-
-        this.#pokemons.forEach(pokemon => {
-            const col = document.createElement("div");
-            col.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3");
-            col.style.padding = "10px";
-            col.appendChild(this.#dibujarPokemon(pokemon));
-            container.appendChild(col);
-        });
+        if (container) {
+            container.innerHTML = "";
+            this.#pokemons.forEach(pokemon => {
+                const col = document.createElement("div");
+                col.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3");
+                col.style.padding = "10px";
+                col.appendChild(this.#dibujarPokemon(pokemon));
+                container.appendChild(col);
+            });
+        }
     }
 }
+
+
 
     //metodos para favoritos
     // Devuelve todos los pokemones (getter público)

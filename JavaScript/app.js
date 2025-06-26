@@ -1,4 +1,3 @@
-/*--------------------------yanira--------a*/
 import {
     addOrUpdateTrainer,
     getAllTrainers,

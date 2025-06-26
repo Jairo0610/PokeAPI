@@ -1,10 +1,20 @@
 .fondo-pagina {
+  background-color: #172a45;
   background: url('../Recursos/bg.svg');
    background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
 }
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: #172a45; 
+  background-size: 100%, 100%;
+  border-radius: 70%;
+  padding: 30px;
+}
+
 
 @keyframes headerFadeIn {
   from {
@@ -18,6 +28,7 @@
 }
 
 header {
+  background-color: #172a45;
   animation: headerFadeIn 1s ease-out both;
 }
 
@@ -42,13 +53,6 @@ section {
   animation-fill-mode: both;
 }
 
-video.object-fit-cover {
-  object-fit: cover;
-  min-height: 100vh; /* Para que llene toda la pantalla */
-  
-}
-video {
-  aspect-ratio: 16 / 9; /* Mantiene proporción responsiva */
-  height: auto;
-  display: block;
+.data-pokemons > :first-child {
+  width: 100%;
 }

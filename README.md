@@ -25,7 +25,9 @@ Una pokédex interactiva y animada con diseño moderno, donde puedes explorar la
 ## 🛠️ Tecnologías Utilizadas.
 <img src="https://skillicons.dev/icons?i=css,javascript,html,vscode,git,github"/> 
 <br>
-**API**: [PokeAPI](https://pokeapi.co/)
+
+⚙️ **API**: [PokeAPI](https://pokeapi.co/)
+
 
 ## 🧩 Instalación
 Clona el repositorio:

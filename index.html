@@ -71,60 +71,52 @@
                 </div>
 
                 <!-- carrusel debajo -->
-                <div class="row g-3 rounded-3 d-flex align-items-center" >
-                    <div class="col-md-12">
-                        <div id="carouselExample" class="carousel slide">
-                            <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <div class="pokedex-container">
-                                <div class="row g-3 justify-content-center data-pokemons">
-                                </div>
-                                </div>
-                                <div id="modal-detalles" class="modal">
-                                    <div class="modal-contenido">
-                                        <span id="cerrar-modal" class="cerrar">&times;</span>
-                                        <h2 id="pokemonModalLabel" class="text-center  fontModalTitle"></h2>
-                                        <div id="pokemonDetails"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="pokedex-container">
-                                <div class="row g-3 justify-content-center data-pokemons">
-                                </div>
-                                </div>
-                                <div id="modal-detalles" class="modal">
-                                    <div class="modal-contenido">
-                                        <span id="cerrar-modal" class="cerrar">&times;</span>
-                                        <h2 id="pokemonModalLabel" class="text-center  fontModalTitle"></h2>
-                                        <div id="pokemonDetails"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="pokedex-container">
-                                <div class="row g-3 justify-content-center data-pokemons">
-                                </div>
-                                </div>
-                                <div id="modal-detalles" class="modal">
-                                  <div class="modal-contenido">
-                                      <span id="cerrar-modal" class="cerrar">&times;</span>
-                                      <h2 id="pokemonModalLabel" class="text-center  fontModalTitle"></h2>
-                                      <div id="pokemonDetails"></div>
-                                  </div>
-                              </div>
-                            </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
+                <div class="row g-3 rounded-3 d-flex align-items-center">
+                  <div class="col-md-12">
+                    <div id="carouselExample" class="carousel slide">
+                      <div class="carousel-inner">
+                        
+                        <div class="carousel-item active">
+                          <div class="pokedex-container">
+                            <div class="row g-3 justify-content-center data-pokemons"></div>
+                          </div>
                         </div>
+
+                        <div class="carousel-item">
+                          <div class="pokedex-container">
+                            <div class="row g-3 justify-content-center data-pokemons"></div>
+                          </div>
+                        </div>
+
+                        <div class="carousel-item">
+                          <div class="pokedex-container">
+                            <div class="row g-3 justify-content-center data-pokemons"></div>
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: #172a45;"></span>
+                        <span class="visually-hidden">Previous</span>
+                      </button>
+                      
+                      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: #172a45;"></span>
+                        <span class="visually-hidden">Next</span>
+                      </button>
+
                     </div>
+                  </div>
+                </div>
+
+                <!-- MODAL único fuera del carrusel -->
+                <div id="modal-detalles" class="modal">
+                  <div class="modal-contenido">
+                    <span id="cerrar-modal" class="cerrar">&times;</span>
+                    <h2 id="pokemonModalLabel" class="text-center fontModalTitle"></h2>
+                    <div id="pokemonDetails"></div>
+                  </div>
                 </div>
             </div>
         </div>

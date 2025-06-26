@@ -282,8 +282,9 @@ class Pokedex {
     }
 dibujarPokedex() {
     const isIndex = window.location.pathname.endsWith("index.html") || window.location.pathname === "/";
+    const isPokeApi =window.location.pathname.endsWith("PokeAPI/")
 
-    if (isIndex) {
+    if (isIndex || isPokeApi) {
         const containers = document.querySelectorAll(".data-pokemons");
         const indices = [0, 3, 6];
 

@@ -10,9 +10,14 @@
   <!-- Boxicons -->
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="Estilo/index.css">
+  <link rel="stylesheet" href="Estilo/card.css">
+    <script type="module" src="JavaScript/app.js" defer></script>
+    <script src="JavaScript/index.js" defer></script>
+
+
 </head>
   <!-- Encabezado -->
-  <header style="background-color: #172a45;">
+  <header>
     <div class="container">
       <div class="top-0 start-0 w-100 h-100"></div>
         <div class="d-flex flex-column align-items-center text-center">
@@ -47,46 +52,63 @@
                 </div>
             </div>
             <!-- card informacion -->
-            <div class="col-lg-8 d-flex flex-column justify-content-between">
+            <div class="col-lg-8 d-flex flex-column justify-content-center">
                 <div class="row g-3">
-                <div class="col-md-12">
-                    <div class="text-center p-4 rounded-3 bg-light h-100">
-                    <img src="FOTOS/gif2.gif" alt="Animación" class="img-fluid" style="width: 150px;">
-                    <h3 class="display-6 fw-bold ">18</h3>
-                    <p class="fs-5 text-muted">Tipos Únicos</p>
+                    <div class="col-md-12">
+                        <div class="text-center p-4 text-white h-100">
+                        <div class="d-flex justify-content-evenly gap-4 flex-wrap align-items-center">
+                            <div>
+                            <h3 class="display-6 fw-bold">18</h3>
+                            <p class="fs-2">Tipos Únicos</p>
+                            </div>
+                            <div>
+                            <img src="Recursos/pokeballNumeracion.svg" alt="Pokebola" class="img-fluid" style="width: 50px;">
+                            <h3 class="display-6 fw-bold">150</h3>
+                            <p class="fs-2">Pokemones</p>
+                            </div>
+                        </div>
+                        <a href="Secciones/pokemon.html" class="btn btn-info btn-lg mt-3 fw-bold">Ver Pokédex</a>
+                        </div>
                     </div>
                 </div>
-                </div>
+
                 <!-- carrusel debajo -->
-                <div class="row g-3">
-                <div class="col-md-12">
-                    <div class="text-center p-4 rounded-3 bg-light h-100">
-                    <img src="FOTOS/gif2.gif" alt="Animación" class="img-fluid" style="width: 150px;">
-                    <h3 class="display-6 fw-bold mb-2">18</h3>
-                    <p class="fs-5 text-muted">Tipos Únicos</p>
+                <div class="row g-3 rounded-3 d-flex align-items-center" >
+                    <div class="col-md-12">
+                        <div id="carouselExample" class="carousel slide">
+                            <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="pokedex-container">
+                                <div class="row g-3 justify-content-center data-pokemons">
+                                </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="pokedex-container">
+                                <div class="row g-3 justify-content-center data-pokemons">
+                                </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="pokedex-container">
+                                <div class="row g-3 justify-content-center data-pokemons">
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
     </section>
 </body>
-<footer>
-    <!-- video footer -->
-    <section>
-        <div class="container-fluid p-0 position-relative overflow-hidden">
-            <div class="position-relative">
-            <video class="w-100 object-fit-cover rounded-3" autoplay muted loop playsinline>
-                <source src="FOTOS/Horizon Brendan Fast.mp4" type="video/mp4">
-            </video>
-            </div>
-            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center z-1 text-center text-white py-5">
-            <h1 class="display-4 fw-bold">TEXTO</h1>
-            <p class="w-75 w-md-50 fs-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                Optio ab sequi vero aut in quibusdam, nobis minima quam fugiat illo nihil doloribus
-                laboriosam necessitatibus officia expedita qui neque. Beatae, nobis.</p>
-            </div>
-        </div>
-    </section>
-</footer>
 </html>

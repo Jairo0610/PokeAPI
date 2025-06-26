@@ -498,3 +498,30 @@ estilos para el modal de estadisticas de los pokemone
     border-color: #FFCC00;
     box-shadow: 0 0 20px #FFCC00;
 }
+/*-------------yanira---------------------c*/
+/* animacion al buscar pokemon */
+.pokemon-card {
+  opacity: 0;
+  transform: scale(0.97);
+  transition: transform 0.5s ease;
+}
+
+.pokemon-card.mostrar {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* animacion de imagen flotando en card */
+.pokemonImagen {
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+

@@ -1,0 +1,58 @@
+.fondo-pagina {
+  background-color: #172a45;
+  background: url('../Recursos/bg.svg');
+   background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: #172a45; /* Tu azul oscuro */
+  background-size: 100%, 100%;
+  border-radius: 70%; /* Opcional: hace el icono redondo */
+  padding: 30px; /* Opcional: agranda el fondo del icono */
+}
+
+
+@keyframes headerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+header {
+  background-color: #172a45;
+  animation: headerFadeIn 1s ease-out both;
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+    transform: scale(0.75);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+section {
+  view-timeline-name: --seccion;
+  view-timeline-axis: block;
+
+  animation-timeline: --seccion;
+  animation-name: show;
+  animation-range: entry 25% cover 50%;
+  animation-fill-mode: both;
+}
+
+.data-pokemons > :first-child {
+  width: 100%;
+}
